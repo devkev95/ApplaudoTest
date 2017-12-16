@@ -7,4 +7,5 @@ module.exports = (app) => {
 
   app.get('/api/product', productsController.list);
   app.post('/api/product', productsController.create);
+  app.use("/api", require("./users"))
 };

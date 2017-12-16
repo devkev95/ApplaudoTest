@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        ProductLog.belongsTo(models.User, {foreignKey: "uers_id", as: "user"})
       }
     },
     tableName: "PricesLog",

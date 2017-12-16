@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: function(models) {
-        Like.belongsTo(models.Product, {foreignKey: "product_id", as: "product"});
+        // Associations go here
       }
     },
     tableName: "Likes",
