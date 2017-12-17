@@ -16,13 +16,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
   }
   }, {
-    classMethods: {
-      associate: function(models) {
-        Purchase.belongsTo(models.Product, { foreignKey: "product_id", as: "product"});
-      }
-    },
     tableName: "Purchases",
-    timestamp: false
+    timestamps: false
   });
+
+  Purchase.associate = function(models){
+    Purchase.belongsTo(models.Product, { foreignKey: "product_id", as: "product"});
+    Purchase.belongsTo(models.User, { foreignKey: "user_id", as: "user"});
+  }
   return Purchase;
 };

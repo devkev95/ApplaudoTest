@@ -20,14 +20,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {
-    classMethods: {
-      associate: function(models) {
-        Product.hasMany(models.ProductLog, {foreignKey: "product_id", as: "logs", onDelete: "CASCADE"}),
-        Product.hasMany(models.Like, {foreignKey: "product_id", as:"likes", onDelete: "CASCADE"})
-      }
-    },
     tableName: "Products",
     timestamps: false
   });
+
+  Product.associate = function(models) {
+    Product.hasMany(models.ProductLog, {foreignKey: "product_id", as: "logs", onDelete: "CASCADE"}),
+    Product.hasMany(models.Like, {foreignKey: "product_id", as:"likes", onDelete: "CASCADE"})
+  }
   return Product;
 };

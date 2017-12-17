@@ -10,15 +10,9 @@ signToken = ((user) => {
         sub: user.id,
         iat: new Date().getTime(),
         exp: new Date().setDate(new Date().getDate() + 1),
-        role : function (){
-            if (user.role == 2) {
-                return "REG"
-            } else if (user.role == 1) {
-                return "ADM"
-            } },
         email: user.email,
-        lastName: user.lastName,
-        firstName: user.firstName
+        name: user.firstName + " " + user.lastName,
+        role : (user.role == 1) ? "ADMIN" : (user.role == 2) ? "NORMAL" : null
   }, JWT_SECRET)
 })
  
@@ -31,6 +25,8 @@ module.exports = {
   },
  
   secret: async (req, res, next) => {
-    res.json({ secret: "resource"});
+    
+    res.json({ secret: "resource", email : res.locals.user});
   }
 }
+

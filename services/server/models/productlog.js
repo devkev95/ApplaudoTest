@@ -23,13 +23,13 @@ module.exports = (sequelize, DataTypes) => {
       field: "change_date"
     }
   }, {
-    classMethods: {
-      associate: function(models) {
-        ProductLog.belongsTo(models.User, {foreignKey: "uers_id", as: "user"})
-      }
-    },
     tableName: "PricesLog",
     timestamps: false
   });
+
+  ProductLog.associate = function(models) {
+    ProductLog.belongsTo(models.User, {foreignKey: "user_id", as: "user"});
+    ProductLog.belongsTo(models.Product, {foreignKey: "product_id", as: "product"});
+  };
   return ProductLog;
 };

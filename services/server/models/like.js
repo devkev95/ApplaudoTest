@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Like = sequelize.define('Like', {
+  const Like = sequelize.define('Like', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -8,13 +8,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {
-    classMethods: {
-      associate: function(models) {
-        // Associations go here
-      }
-    },
     tableName: "Likes",
     timestamps: false
   });
+
+  Like.associate = function(models) {
+    // Associations go here
+    Like.belongsTo(models.Product, { foreignKey: "product_id"});
+    Like.belongsTo(models.User, { foreignKey: "user_id"});
+  }
   return Like;
 };

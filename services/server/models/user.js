@@ -31,15 +31,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false
     }
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-        Users.hasMany(models.Purchase, {foreignKey: "user_id", as: "purchases"});
-        Users.hasMany(models.Like, {foreignKey: "user_id", as: "likedProducts"});
-      }
-    },
     tableName: "Users",
     timestamps: false
   });
+
+  User.associate = function(models) {
+    // associations can be defined here
+    User.hasMany(models.Purchase, {foreignKey: "user_id", as: "purchases"});
+    User.hasMany(models.Like, {foreignKey: "user_id", as: "likedProducts"});
+  };
   return User;
 };
