@@ -22,9 +22,9 @@ module.exports = (app) => {
   app.put('/api/product', passport.authenticate('jwt', {session: false}), productsController.create);
   app.put("/api/product/:productId/like", passport.authenticate('jwt', {session: false}), 
   productsController.like);
-  app.put("/api/product/purchase", passport.authenticate("jwt", {session: false}), 
+  app.put("/api/product/:productId/purchase", passport.authenticate("jwt", {session: false}), 
   productsController.purchase);
-  app.post("/api/product/updatePrice", passport.authenticate("jwt", {session: false}), 
+  app.post("/api/admin/product/:proudctId/updatePrice", passport.authenticate("jwt", {session: false}), 
   productsController.update);
   app.use("/api", require("./users"));
 };

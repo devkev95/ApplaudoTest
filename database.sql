@@ -28,10 +28,9 @@ CREATE TABLE Purchases(
 );
 
 CREATE TABLE Likes(
-	flag int NOT NULL,
 	product_id int NOT NULL,
 	user_id int NOT NULL,
-	id int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	PRIMARY KEY(product_id, user_id),
 	CONSTRAINT fk_like_user FOREIGN KEY (user_id) REFERENCES Users(id),
 	CONSTRAINT fk_like_product FOREIGN KEY (product_id) REFERENCES Products(id)
 );

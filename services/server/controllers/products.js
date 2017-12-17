@@ -1,6 +1,5 @@
 const Product = require('../models').Product;
 const Purchase = require("../models").Purchase;
-const Like = require("../models").Like;
 const ProductLog = require("../models").ProductLog;
 const User = require("../models").User;
 
@@ -24,23 +23,22 @@ module.exports = {
   },
 
   like(req, res){
-    Like.create({
-        user_id : res.locals.user.sub,
-        product_id : req.params.productId
+    Product.findById(req.params.productId).then((product) => {
+      product.addUserWhoLikedThis(res.locals.user.sub).then(() => {
+        res.status(201).send("Liked successfully saved");
       })
-    .then(() => {
-      res.status(201).send("Liked successfully saved");
-    })
-    .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).send(error));
+    });
+    
   },
 
   purchase(req, res){
-    const product = Product.findById(req.body.productId).then((product) => {
+    const product = Product.findById(req.params.productId).then((product) => {
       if (product.stock >= req.body.amount){
         Purchase.create({
           amount: req.body.amount,
           user_id: res.locals.user.sub,
-          product_id: req.body.productId,
+          product_id: req.params.productId,
           date: Date()
         })
         .then((purchase) => {
@@ -55,7 +53,7 @@ module.exports = {
   },
 
   update(req, res){
-    const product = Product.findById(req.body.productId).then((product) => {
+    const product = Product.findById(req.params.productId).then((product) => {
       var oldPrice = product.price;
       product.price = req.body.price;
       product.save().then(() => {
@@ -64,7 +62,7 @@ module.exports = {
           newPrice: req.body.price,
           changeDate: Date(),
           user_id: res.locals.user.sub,
-          product_id: req.body.productId
+          product_id: req.params.productId
         }).then(res.status(201).send("Price updated correctly"))
         .catch(error => res.status(400).send(error));
       })

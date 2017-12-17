@@ -26,7 +26,8 @@ module.exports = (sequelize, DataTypes) => {
 
   Product.associate = function(models) {
     Product.hasMany(models.ProductLog, {foreignKey: "product_id", as: "logs", onDelete: "CASCADE"}),
-    Product.hasMany(models.Like, {foreignKey: "product_id", as:"likes", onDelete: "CASCADE"})
+    Product.belongsToMany(models.User, {as : "userWhoLikedThis", through: "Likes", foreignKey: "product_id",
+  timestamps: false})
   }
   return Product;
 };
