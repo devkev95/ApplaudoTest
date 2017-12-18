@@ -8,6 +8,7 @@ npm install
 4. Set your database username, password and port on services/server/config/config.json on the development configuration part
 5. Use the file data.sql to dump data on the OnlineStore database
 6. There are 2 users added to the system it's creadentials are:
+
 Email | Password | Role
 ------------ | ------------- | -------------
 devkev95@gmail.com | contraseña | Administrator
