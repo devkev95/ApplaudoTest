@@ -47,10 +47,10 @@ module.exports = {
         query += "ORDER BY p.name DESC "
       }
       query += "LIMIT "+(numRecords*(numPage - 1))+", "+numRecords;
-      
+      totalPages = Math.ceil(result[0].c / numRecords);
       sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
       .then((products) =>  res.status(200).send({products: products, 
-        pageNumber: numPage, recordsPerPage: numRecords, totalRecords: result[0].c}))
+        pageNumber: numPage, recordsPerPage: numRecords, totalPages: totalPages}))
         .catch(error => res.status(400).send(error));
      })
     .catch(error => res.status(400).send(error));
